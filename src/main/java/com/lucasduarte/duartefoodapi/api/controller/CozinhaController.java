@@ -4,12 +4,10 @@ import com.lucasduarte.duartefoodapi.domain.model.Cozinha;
 import com.lucasduarte.duartefoodapi.infrastructure.repository.CozinhaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/cozinhas")
@@ -21,5 +19,10 @@ public class CozinhaController {
     @GetMapping
     public List<Cozinha> listar(){
         return cozinhaRepository.findAll();
+    }
+
+    @GetMapping("/{cozinhaId}")
+    public Optional<Cozinha> buscar(@PathVariable Long cozinhaId){
+        return cozinhaRepository.findById(cozinhaId);
     }
 }
