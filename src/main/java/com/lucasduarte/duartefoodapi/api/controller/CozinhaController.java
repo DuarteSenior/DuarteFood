@@ -4,7 +4,6 @@ import com.lucasduarte.duartefoodapi.domain.model.Cozinha;
 import com.lucasduarte.duartefoodapi.infrastructure.repository.CozinhaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,5 +30,27 @@ public class CozinhaController {
             return ResponseEntity.status(HttpStatus.OK).body(cozinha);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping()
+    public ResponseEntity<Cozinha> adicionar(@RequestBody Cozinha cozinha) {
+        Cozinha cozinhaBody = cozinhaRepository.save(cozinha);
+        return ResponseEntity.status(HttpStatus.CREATED).body(cozinhaBody);
+    }
+
+    @PutMapping("/{cozinhaId}")
+    public ResponseEntity<Optional<Cozinha>> atualizar(@PathVariable Long cozinhaId,
+                                                       @RequestBody Cozinha cozinha) {
+        Optional<Cozinha> cozinhaAtualOptional = cozinhaRepository.findById(cozinhaId);
+
+        if (cozinhaAtualOptional.isPresent()) {
+            Cozinha cozinhaAtual = cozinhaAtualOptional.get();
+            cozinhaAtual.setNome(cozinha.getNome());
+
+            Cozinha cozinhaAtualizada = cozinhaRepository.save(cozinhaAtual);
+            return ResponseEntity.ok(Optional.of(cozinhaAtualizada));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
