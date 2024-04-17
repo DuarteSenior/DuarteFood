@@ -1,6 +1,7 @@
 package com.lucasduarte.duartefoodapi.api.controller;
 
 import com.lucasduarte.duartefoodapi.domain.model.Cozinha;
+import com.lucasduarte.duartefoodapi.domain.service.CadastroCozinhaService;
 import com.lucasduarte.duartefoodapi.infrastructure.repository.CozinhaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,9 @@ public class CozinhaController {
     @Autowired
     private CozinhaRepository cozinhaRepository;
 
+    @Autowired
+    private CadastroCozinhaService cozinhaService;
+    
     @GetMapping
     public List<Cozinha> listar() {
         return cozinhaRepository.findAll();
@@ -34,7 +38,7 @@ public class CozinhaController {
 
     @PostMapping()
     public ResponseEntity<Cozinha> adicionar(@RequestBody Cozinha cozinha) {
-        Cozinha cozinhaBody = cozinhaRepository.save(cozinha);
+        Cozinha cozinhaBody = cozinhaService.salvar(cozinha);
         return ResponseEntity.status(HttpStatus.CREATED).body(cozinhaBody);
     }
 
