@@ -1,4 +1,4 @@
-package com.lucasduarte.duartefoodapi.infrastructure.repository;
+package com.lucasduarte.duartefoodapi.domain.repository;
 
 
 import com.lucasduarte.duartefoodapi.domain.model.Cozinha;

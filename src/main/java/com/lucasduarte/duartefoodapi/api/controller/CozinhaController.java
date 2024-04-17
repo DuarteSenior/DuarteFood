@@ -1,8 +1,9 @@
 package com.lucasduarte.duartefoodapi.api.controller;
 
+import com.lucasduarte.duartefoodapi.domain.exception.EndidadeNaoEcontradaException;
 import com.lucasduarte.duartefoodapi.domain.model.Cozinha;
 import com.lucasduarte.duartefoodapi.domain.service.CadastroCozinhaService;
-import com.lucasduarte.duartefoodapi.infrastructure.repository.CozinhaRepository;
+import com.lucasduarte.duartefoodapi.domain.repository.CozinhaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,13 +61,11 @@ public class CozinhaController {
 
     @DeleteMapping("/{cozinhaId}")
     public ResponseEntity<Void> remover(@PathVariable Long cozinhaId) {
-        Optional<Cozinha> cozinhaOptional = cozinhaRepository.findById(cozinhaId);
 
-        if (cozinhaOptional.isPresent()) {
-            Cozinha cozinha = cozinhaOptional.get();
-            cozinhaRepository.delete(cozinha);
+        try {
+            cozinhaService.excluir(cozinhaId);
             return ResponseEntity.noContent().build();
-        } else {
+        } catch (EndidadeNaoEcontradaException e){
             return ResponseEntity.notFound().build();
         }
     }
