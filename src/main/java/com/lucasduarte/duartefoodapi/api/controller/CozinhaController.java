@@ -21,7 +21,7 @@ public class CozinhaController {
 
     @Autowired
     private CadastroCozinhaService cozinhaService;
-    
+
     @GetMapping
     public List<Cozinha> listar() {
         return cozinhaRepository.findAll();
@@ -44,19 +44,15 @@ public class CozinhaController {
     }
 
     @PutMapping("/{cozinhaId}")
-    public ResponseEntity<Optional<Cozinha>> atualizar(@PathVariable Long cozinhaId,
+    public ResponseEntity<Cozinha> atualizar(@PathVariable Long cozinhaId,
                                                        @RequestBody Cozinha cozinha) {
-        Optional<Cozinha> cozinhaAtualOptional = cozinhaRepository.findById(cozinhaId);
-
-        if (cozinhaAtualOptional.isPresent()) {
-            Cozinha cozinhaAtual = cozinhaAtualOptional.get();
-            cozinhaAtual.setNome(cozinha.getNome());
-
-            Cozinha cozinhaAtualizada = cozinhaRepository.save(cozinhaAtual);
-            return ResponseEntity.ok(Optional.of(cozinhaAtualizada));
-        } else {
+        try {
+            Cozinha cozinhaAtualizada = cozinhaService.atualizar(cozinhaId, cozinha);
+            return ResponseEntity.ok(cozinhaAtualizada);
+        } catch (EndidadeNaoEcontradaException e) {
             return ResponseEntity.notFound().build();
         }
+
     }
 
     @DeleteMapping("/{cozinhaId}")
@@ -65,7 +61,7 @@ public class CozinhaController {
         try {
             cozinhaService.excluir(cozinhaId);
             return ResponseEntity.noContent().build();
-        } catch (EndidadeNaoEcontradaException e){
+        } catch (EndidadeNaoEcontradaException e) {
             return ResponseEntity.notFound().build();
         }
     }

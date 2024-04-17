@@ -18,6 +18,20 @@ public class CadastroCozinhaService {
         return cozinhaRepository.save(cozinha);
     }
 
+    public Cozinha atualizar(Long cozinhaId, Cozinha cozinha) {
+        Optional<Cozinha> cozinhaAtualOptional = cozinhaRepository.findById(cozinhaId);
+
+        if (cozinhaAtualOptional.isPresent()) {
+            Cozinha cozinhaAtual = cozinhaAtualOptional.get();
+            cozinhaAtual.setNome(cozinha.getNome());
+
+            return cozinhaRepository.save(cozinhaAtual);
+        } else {
+            throw new EndidadeNaoEcontradaException("Cozinha não encontrada!");
+        }
+    }
+
+
     public void excluir(Long cozinhaId) {
         Optional<Cozinha> cozinhaOptional = cozinhaRepository.findById(cozinhaId);
 
