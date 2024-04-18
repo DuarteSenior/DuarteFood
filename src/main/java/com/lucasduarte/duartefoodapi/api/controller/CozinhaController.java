@@ -1,6 +1,6 @@
 package com.lucasduarte.duartefoodapi.api.controller;
 
-import com.lucasduarte.duartefoodapi.domain.exception.EndidadeNaoEcontradaException;
+import com.lucasduarte.duartefoodapi.domain.exception.EntidadeNaoEcontradaException;
 import com.lucasduarte.duartefoodapi.domain.model.Cozinha;
 import com.lucasduarte.duartefoodapi.domain.service.CadastroCozinhaService;
 import com.lucasduarte.duartefoodapi.domain.repository.CozinhaRepository;
@@ -49,7 +49,7 @@ public class CozinhaController {
         try {
             Cozinha cozinhaAtualizada = cozinhaService.atualizar(cozinhaId, cozinha);
             return ResponseEntity.ok(cozinhaAtualizada);
-        } catch (EndidadeNaoEcontradaException e) {
+        } catch (EntidadeNaoEcontradaException e) {
             return ResponseEntity.notFound().build();
         }
 
@@ -61,7 +61,7 @@ public class CozinhaController {
         try {
             cozinhaService.excluir(cozinhaId);
             return ResponseEntity.noContent().build();
-        } catch (EndidadeNaoEcontradaException e) {
+        } catch (EntidadeNaoEcontradaException e) {
             return ResponseEntity.notFound().build();
         }
     }

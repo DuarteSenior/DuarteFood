@@ -1,10 +1,10 @@
 package com.lucasduarte.duartefoodapi.domain.exception;
 
-public class EndidadeNaoEcontradaException extends RuntimeException{
+public class EntidadeNaoEcontradaException extends RuntimeException{
 
     private static  final long serialVersionUID = 1L;
 
-    public EndidadeNaoEcontradaException(String mensagem){
+    public EntidadeNaoEcontradaException(String mensagem){
         super(mensagem);
 
     }

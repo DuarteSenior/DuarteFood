@@ -1,6 +1,6 @@
 package com.lucasduarte.duartefoodapi.domain.service;
 
-import com.lucasduarte.duartefoodapi.domain.exception.EndidadeNaoEcontradaException;
+import com.lucasduarte.duartefoodapi.domain.exception.EntidadeNaoEcontradaException;
 import com.lucasduarte.duartefoodapi.domain.model.Cozinha;
 import com.lucasduarte.duartefoodapi.domain.repository.CozinhaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class CadastroCozinhaService {
 
             return cozinhaRepository.save(cozinhaAtual);
         } else {
-            throw new EndidadeNaoEcontradaException("Cozinha não encontrada!");
+            throw new EntidadeNaoEcontradaException("Cozinha não encontrada!");
         }
     }
 
@@ -38,7 +38,7 @@ public class CadastroCozinhaService {
         if (cozinhaOptional.isPresent()) {
             cozinhaRepository.deleteById(cozinhaId);
         } else {
-            throw new EndidadeNaoEcontradaException("Cozinha não encontrada!");
+            throw new EntidadeNaoEcontradaException("Cozinha não encontrada!");
         }
 
 
