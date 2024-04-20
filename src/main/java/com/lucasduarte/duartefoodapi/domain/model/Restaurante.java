@@ -1,15 +1,17 @@
 package com.lucasduarte.duartefoodapi.domain.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
+@Builder
 public class Restaurante {
 
     @EqualsAndHashCode.Include

@@ -1,14 +1,16 @@
 package com.lucasduarte.duartefoodapi.domain.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.*;
 
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
+@Builder
 public class Cozinha {
 
     @EqualsAndHashCode.Include
