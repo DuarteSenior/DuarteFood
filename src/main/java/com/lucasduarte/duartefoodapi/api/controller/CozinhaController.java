@@ -1,5 +1,6 @@
 package com.lucasduarte.duartefoodapi.api.controller;
 
+import com.lucasduarte.duartefoodapi.domain.exception.EntidadeJaExiste;
 import com.lucasduarte.duartefoodapi.domain.exception.EntidadeNaoEcontradaException;
 import com.lucasduarte.duartefoodapi.domain.model.Cozinha;
 import com.lucasduarte.duartefoodapi.domain.service.CadastroCozinhaService;
@@ -39,13 +40,18 @@ public class CozinhaController {
 
     @PostMapping()
     public ResponseEntity<Cozinha> adicionar(@RequestBody Cozinha cozinha) {
-        Cozinha cozinhaBody = cozinhaService.salvar(cozinha);
-        return ResponseEntity.status(HttpStatus.CREATED).body(cozinhaBody);
+        try {
+            Cozinha cozinhaBody = cozinhaService.salvar(cozinha);
+            return ResponseEntity.status(HttpStatus.CREATED).body(cozinhaBody);
+        } catch (EntidadeJaExiste e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
     }
 
     @PutMapping("/{cozinhaId}")
     public ResponseEntity<Cozinha> atualizar(@PathVariable Long cozinhaId,
-                                                       @RequestBody Cozinha cozinha) {
+                                             @RequestBody Cozinha cozinha) {
         try {
             Cozinha cozinhaAtualizada = cozinhaService.atualizar(cozinhaId, cozinha);
             return ResponseEntity.ok(cozinhaAtualizada);

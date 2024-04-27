@@ -52,12 +52,20 @@ public class CozinhaRepositoryTests {
 
     @Test
     public void givenCozinhaObject_whenFindById_thenReturnCozinhaObject() {
-        Cozinha cozinha = Cozinha.builder()
-                .nome("Indiana")
-                .build();
+
         cozinhaRepository.save(cozinha);
 
         Cozinha cozinhaDB = cozinhaRepository.findById(cozinha.getId()).get();
+
+        assertThat(cozinhaDB).isNotNull();
+    }
+
+    @Test
+    public void givenCozinhaName_whenFindByNome_thenReturnCozinhaObject() {
+
+        cozinhaRepository.save(cozinha);
+
+        Cozinha cozinhaDB = cozinhaRepository.findByNome(cozinha.getNome()).get();
 
         assertThat(cozinhaDB).isNotNull();
     }
